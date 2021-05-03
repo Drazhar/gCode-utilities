@@ -1,4 +1,4 @@
-import extractRecentPosition from "../src/modules/extractRecentPositions"
+import extractRecentPosition from "../src/modules/extractRecentPosition"
 
 it("should throw error when no valid path is inputted", async () => {
   await expect(extractRecentPosition("", 80)).rejects.toThrow()
