@@ -1,0 +1,18 @@
+{
+  "name": "gcode-utilities",
+  "version": "1.0.0",
+  "description": "Some basic utilities to manipulate the gcode files for 3D printing",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "author": "Philip Trauth",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.5",
+    "typescript": "^4.2.4"
+  }
+}
