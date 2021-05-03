@@ -17,4 +17,6 @@ test("Return valid object when layer is found", async () => {
   expect(result.Y).toBe(27.89)
   expect(result.Z).toBe(9.72)
   expect(result.E).toBe(3015.43661)
+  expect(result.hotendTemperature).toBe(200)
+  expect(result.bedTemperature).toBe(50)
 })
