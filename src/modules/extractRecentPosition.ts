@@ -9,13 +9,17 @@ export interface recentSettings {
   bedTemperature: number
 }
 
+interface recentData {
+  [propName: string]: { val: number | null; regExp: RegExp }
+}
+
 export default async function extractRecentPosition(
   filepath: string,
   layer: number
 ): Promise<recentSettings> {
   const fileContent = await readFileOrThrow(filepath)
 
-  const recentData = {
+  const recentData: recentData = {
     E: { val: null, regExp: new RegExp(/e([.0-9]+)/i) },
     X: { val: null, regExp: new RegExp(/x([.0-9]+)/i) },
     Y: { val: null, regExp: new RegExp(/y([.0-9]+)/i) },
@@ -44,7 +48,7 @@ export async function readFileOrThrow(filepath: string): Promise<string> {
   }
 }
 
-function collectRecentData(fileContent: string, resPos: object, layer: number): void {
+function collectRecentData(fileContent: string, resPos: recentData, layer: number): void {
   const layerPosition = getPositionOfLayer(fileContent, layer)
   const sliced = fileContent.slice(0, layerPosition).split("\n")
   for (let i = sliced.length - 1; i >= 0; i--)

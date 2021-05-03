@@ -13,8 +13,12 @@ export async function prepareGcodeSnippet(
   return replacePlaceholders(rawSnippet, settings)
 }
 
+interface extendedSettings extends recentSettings {
+  [propName: string]: number
+}
+
 function replacePlaceholders(rawSnippet: string, settings: recentSettings): string {
-  let extendedSettings: any = settings
+  const extendedSettings: extendedSettings = { ...settings }
   extendedSettings.Z1 = settings.Z + 1
   for (const prop in extendedSettings) {
     const regExp = new RegExp(`{{${prop}}}`, "gi")
