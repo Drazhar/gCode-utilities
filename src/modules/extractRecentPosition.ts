@@ -1,6 +1,6 @@
 import * as fs from "fs/promises"
 
-interface recentSettings {
+export interface recentSettings {
   E: number
   X: number
   Y: number
