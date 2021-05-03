@@ -36,7 +36,7 @@ export default async function extractRecentPosition(
   }
 }
 
-async function readFileOrThrow(filepath: string): Promise<string> {
+export async function readFileOrThrow(filepath: string): Promise<string> {
   try {
     return await fs.readFile(filepath, { encoding: "ascii" })
   } catch (err) {
