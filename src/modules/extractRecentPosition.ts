@@ -60,7 +60,7 @@ function collectRecentData(fileContent: string, resPos: recentData, layer: numbe
         }
 }
 
-function getPositionOfLayer(fileContent: string, layer: number): number {
+export function getPositionOfLayer(fileContent: string, layer: number): number {
   const layerPosition = fileContent.indexOf(`LAYER:${layer}`)
   if (layerPosition < 0) throw RangeError("Layer not found")
   return layerPosition
