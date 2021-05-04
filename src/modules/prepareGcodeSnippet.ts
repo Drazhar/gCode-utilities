@@ -22,7 +22,10 @@ function replacePlaceholders(rawSnippet: string, settings: recentSettings): stri
   extendedSettings.Z1 = settings.Z + 1
   for (const prop in extendedSettings) {
     const regExp = new RegExp(`{{${prop}}}`, "gi")
-    rawSnippet = rawSnippet.replace(regExp, settings[prop])
+    rawSnippet = rawSnippet.replace(
+      regExp,
+      `${Math.round(extendedSettings[prop] * 100000) / 100000}`
+    )
   }
   return rawSnippet
 }

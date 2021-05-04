@@ -13,12 +13,10 @@ interface recentData {
   [propName: string]: { val: number | null; regExp: RegExp }
 }
 
-export default async function extractRecentPosition(
-  filepath: string,
+export async function extractRecentPosition(
+  fileContent: string,
   layer: number
 ): Promise<recentSettings> {
-  const fileContent = await readFileOrThrow(filepath)
-
   const recentData: recentData = {
     E: { val: null, regExp: new RegExp(/e([.0-9]+)/i) },
     X: { val: null, regExp: new RegExp(/x([.0-9]+)/i) },
