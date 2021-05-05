@@ -1,20 +1,11 @@
 import { recentSettings, readFileOrThrow } from "./extractRecentPosition"
 
-export enum breakType {
-  filamentChange = "filamentChange",
-  pause = "pause",
-}
-
 export async function prepareGcodeSnippet(
   settings: recentSettings,
   type: breakType
 ): Promise<string> {
   const rawSnippet = await readFileOrThrow(`src/gcodeTemplates/${type}.gcode`)
   return replacePlaceholders(rawSnippet, settings)
-}
-
-interface extendedSettings extends recentSettings {
-  [propName: string]: number
 }
 
 function replacePlaceholders(rawSnippet: string, settings: recentSettings): string {
@@ -28,4 +19,13 @@ function replacePlaceholders(rawSnippet: string, settings: recentSettings): stri
     )
   }
   return rawSnippet
+}
+
+export enum breakType {
+  filamentChange = "filamentChange",
+  pause = "pause",
+}
+
+interface extendedSettings extends recentSettings {
+  [propName: string]: number
 }
