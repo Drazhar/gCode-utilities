@@ -1,17 +1,33 @@
 {
-  "name": "gcode-utilities",
+  "name": "@drazhar/gcode-utils",
   "version": "1.0.0",
-  "description": "Some basic utilities to manipulate the gcode files for 3D printing",
-  "main": "index.js",
+  "description": "A CLI to add breaks to gcode for 3D printing",
+  "main": "cli.js",
+  "bin": {
+    "@drazhar/gcode-utils": "build/bin/gcode-utils.js",
+    "gcode-utils": "build/bin/gcode-utils.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "jest --watch",
     "build": "tsc --watch",
-    "watch": "nodemon ./build/index.js",
+    "watch": "nodemon ./build/cli.js",
     "start": "concurrently -n tsc,nodemon -c blue,green \"npm run build\" \"npm run watch\""
   },
+  "keywords": [
+    "cli",
+    "gcode",
+    "filamentChange"
+  ],
   "author": "Philip Trauth",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "arg": "^5.0.0",
+    "inquirer": "^8.0.0",
+    "listr": "^0.14.3"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
