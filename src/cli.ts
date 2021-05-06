@@ -137,8 +137,7 @@ async function checkIfFileExists(filepath: string): Promise<string | boolean> {
   return fs
     .access(filepath)
     .then(() => true)
-    .catch((err) => {
-      console.log(err)
+    .catch(() => {
       return "Specified file wasn't found. Please enter a corrent filename with path."
     })
 }
