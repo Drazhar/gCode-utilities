@@ -1,11 +1,10 @@
 # gCode utilities
-This is a collection of scripts I plan to use to modify my gCode files before printing.
-This is basically a small project to get some exercise in Typescript and which also has some practical usage.
+This is a collection of scripts I plan to use to modify my gCode files before printing. I'm happy for any suggestion 😃
 
 ## Functionality
 Right now there are only two functions implemented:
-1. Adding a break in the print. This is for example helpful to insert magnets.
-2. Adding a breakpoint to change the filament during a print.
+1. Pause for adding a break in the print. This is to insert magnets or similar into the print.
+2. filamentChange for adding a breakpoint to change the filament during a print.
 
 ## Usage
 You can install the package globally by running:
