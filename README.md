@@ -1,9 +1,19 @@
 # gCode utilities
 This is a collection of scripts I plan to use to modify my gCode files before printing.
-It's written in Typescript that I get more experience in the language. Maybe I implement this in Electron to get an GUI.
+This is basically a small project to get some exercise in Typescript and which also has some practical usage.
 
-## Run tests
-I also need to exercise writing tests, so I use a kinda TDD. To run the tests in watch mode, simply run:
+## Functionality
+Right now there are only two functions implemented:
+1. Adding a break in the print. This is for example helpful to insert magnets.
+2. Adding a breakpoint to change the filament during a print.
+
+## Usage
+You can install the package globally by running:
 ```
-npm test
+npm i -g @drazhar/gcode-utils
+```
+This enables to use the package directly with ``gcode-utils <options>``
+It's also possible to use the utilities directly without installing by utilizing the npm command:
+```
+npx @drazhar/gcode-utils <options>
 ```

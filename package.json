@@ -1,7 +1,7 @@
 {
   "name": "@drazhar/gcode-utils",
   "version": "1.0.0",
-  "description": "A CLI to add breaks to gcode for 3D printing",
+  "description": "A CLI to add breaks to gcode files from Cura for 3D printing",
   "main": "cli.js",
   "bin": {
     "@drazhar/gcode-utils": "build/bin/gcode-utils.js",
