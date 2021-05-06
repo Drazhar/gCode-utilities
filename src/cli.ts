@@ -44,7 +44,7 @@ async function promptForMissingOptions(options) {
     questions.push({
       type: "input",
       name: "input",
-      message: "Please enter a path to the gcode input file",
+      message: "Enter a path to the gGode input file",
       validate: async (input) => await checkIfFileExists(input),
     })
   }
@@ -53,10 +53,10 @@ async function promptForMissingOptions(options) {
     questions.push({
       type: "input",
       name: "output",
-      message: "Please enter the name for the outfile",
+      message: "Enter the name for the outfile",
       validate: (input) => {
         if (input) return true
-        return "Please enter an output name"
+        return "Please enter a name"
       },
     })
   }
@@ -66,7 +66,7 @@ async function promptForMissingOptions(options) {
       type: "list",
       name: "type",
       message: () => {
-        if (!options.type) return "Please select the break type"
+        if (!options.type) return "Select the break type"
         return `Unknown type ${options.type} specified. Please select a valid type`
       },
       choices: ["filamentChange", "pause"],
@@ -78,7 +78,11 @@ async function promptForMissingOptions(options) {
     questions.push({
       type: "number",
       name: "layer",
-      message: "Please select layer before which the break should be added",
+      message: "Select layer before which the break should be added",
+      validate: (input) => {
+        if (input <= 0) return "Please enter a valid layer number"
+        return true
+      },
     })
   }
 
@@ -138,6 +142,6 @@ async function checkIfFileExists(filepath: string): Promise<string | boolean> {
     .access(filepath)
     .then(() => true)
     .catch(() => {
-      return "Specified file wasn't found. Please enter a corrent filename with path."
+      return "Specified file wasn't found. Please enter a correct filename with path."
     })
 }
