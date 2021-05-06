@@ -1,13 +1,13 @@
-import { recentSettings, readFileOrThrow } from "./extractRecentPosition"
+import { recentSettings } from "./extractRecentPosition"
 import path from "path"
+import { readFileOrThrow } from "./readFileOrThrow"
 
 export async function prepareGcodeSnippet(
   settings: recentSettings,
   type: breakType
 ): Promise<string> {
-  const rawSnippet = await readFileOrThrow(
-    path.resolve(__dirname, `../../gcodeTemplates/${type}.gcode`)
-  )
+  const templatePath = path.resolve(__dirname, `../../gcodeTemplates/${type}.gcode`)
+  const rawSnippet = await readFileOrThrow(templatePath)
   return replacePlaceholders(rawSnippet, settings)
 }
 

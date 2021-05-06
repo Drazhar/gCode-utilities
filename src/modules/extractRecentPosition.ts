@@ -1,5 +1,3 @@
-import * as fs from "fs/promises"
-
 export interface recentSettings {
   E: number
   X: number
@@ -35,14 +33,6 @@ export async function extractRecentPosition(
     Z: recentData.Z.val,
     hotendTemperature: recentData.hotendTemperature.val,
     bedTemperature: recentData.bedTemperature.val,
-  }
-}
-
-export async function readFileOrThrow(filepath: string): Promise<string> {
-  try {
-    return await fs.readFile(filepath, { encoding: "ascii" })
-  } catch (err) {
-    throw ReferenceError(err)
   }
 }
 
