@@ -16,7 +16,7 @@ export async function extractRecentPosition(
   layer: number
 ): Promise<recentSettings> {
   const recentData: recentData = {
-    E: { val: null, regExp: new RegExp(/e([.0-9]+)/i) },
+    E: { val: null, regExp: new RegExp(/g[01].*[xy].*e([.0-9]+)/i) },
     X: { val: null, regExp: new RegExp(/x([.0-9]+)/i) },
     Y: { val: null, regExp: new RegExp(/y([.0-9]+)/i) },
     Z: { val: null, regExp: new RegExp(/z([.0-9]+)/i) },

@@ -34,5 +34,5 @@ G0 X{{X}} Y{{Y}} Z{{Z}}  ; Go to last Position.
 G1 F2700 E0
 G92 E{{E}}
 ;
-; FPause finished
+; Pause finished
 ;
