@@ -1,10 +1,11 @@
 import { breakType, prepareGcodeSnippet } from "../src/modules/prepareGcodeSnippet"
 import {
   extractRecentPosition,
-  readFileOrThrow,
+  recentSettings,
 } from "../src/modules/extractRecentPosition"
+import { readFileOrThrow } from "../src/modules/readFileOrThrow"
 
-let recentSettings
+let recentSettings: recentSettings
 beforeAll(async () => {
   const testGCode = "tests/data/CE3_DEF.gcode"
   const fileContent = await readFileOrThrow(testGCode)

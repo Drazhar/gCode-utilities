@@ -2,19 +2,18 @@ import arg from "arg"
 import inquirer from "inquirer"
 import Listr from "listr"
 import { breakType, prepareGcodeSnippet } from "./modules/prepareGcodeSnippet"
-import { extractRecentPosition } from "./modules/extractRecentPosition"
+import { extractRecentPosition, recentSettings } from "./modules/extractRecentPosition"
 import { readFileOrThrow } from "./modules/readFileOrThrow"
 import { insertSnippet } from "./modules/insertSnippet"
 import * as fs from "fs/promises"
 import path from "path"
 
 export async function cli(args: string[]): Promise<void> {
-  let options = parseArgsIntoOptions(args)
-  options = await promptForMissingOptions(options)
+  const optionsRaw = parseArgsIntoOptions(args)
+  const options = await promptForMissingOptions(optionsRaw)
   await performTasks(options)
 }
-
-function parseArgsIntoOptions(rawArgs) {
+function parseArgsIntoOptions(rawArgs: string[]): rawOptions {
   const args = arg(
     {
       "--input": String,
@@ -38,14 +37,25 @@ function parseArgsIntoOptions(rawArgs) {
   }
 }
 
-async function promptForMissingOptions(options) {
+interface options {
+  input: string
+  output: string
+  type: string
+  layer: number
+}
+
+interface rawOptions {
+  [prop: string]: string | number
+}
+
+async function promptForMissingOptions(options: rawOptions): Promise<options> {
   const questions = []
   if (!options.input) {
     questions.push({
       type: "input",
       name: "input",
       message: "Enter a path to the gGode input file",
-      validate: async (input) => await checkIfFileExists(input),
+      validate: async (input: string) => await checkIfFileExists(input),
     })
   }
 
@@ -54,14 +64,14 @@ async function promptForMissingOptions(options) {
       type: "input",
       name: "output",
       message: "Enter the name for the outfile",
-      validate: (input) => {
+      validate: (input: string) => {
         if (input) return true
         return "Please enter a name"
       },
     })
   }
 
-  if (!options.type || !Object.values(breakType).includes(options.type)) {
+  if (!options.type || !Object.values(breakType).includes(options.type as breakType)) {
     questions.push({
       type: "list",
       name: "type",
@@ -79,7 +89,7 @@ async function promptForMissingOptions(options) {
       type: "number",
       name: "layer",
       message: "Select layer before which the break should be added",
-      validate: (input) => {
+      validate: (input: number) => {
         if (input <= 0) return "Please enter a valid layer number"
         return true
       },
@@ -88,7 +98,6 @@ async function promptForMissingOptions(options) {
 
   const answers = await inquirer.prompt(questions)
   return {
-    ...options,
     input: options.input || answers.input,
     output: options.output || answers.output,
     type: options.type || answers.type,
@@ -96,11 +105,14 @@ async function promptForMissingOptions(options) {
   }
 }
 
-async function performTasks(options) {
-  let baseContent, recentSettings, snippet, newContent
+async function performTasks(options: options) {
+  let baseContent: string,
+    recentSettings: recentSettings,
+    snippet: string,
+    newContent: string
   const tasks = new Listr([
     {
-      title: "Loading inputfile",
+      title: "Loading input file",
       task: async () => {
         baseContent = await readFileOrThrow(options.input)
       },
@@ -114,7 +126,7 @@ async function performTasks(options) {
     {
       title: "Preparing gCode snippet for insertion",
       task: async () => {
-        snippet = await prepareGcodeSnippet(recentSettings, options.type)
+        snippet = await prepareGcodeSnippet(recentSettings, options.type as breakType)
       },
     },
     {

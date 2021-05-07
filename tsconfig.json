@@ -1,4 +1,5 @@
 {
+  "extends": "@tsconfig/node14/tsconfig.json",
   "compilerOptions": {
     "baseUrl": "src",
     "lib": ["es2020"],
@@ -6,10 +7,6 @@
     "target": "es2020",
     
     "outDir": "build",
-
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
   }, 
   "include": ["src/**/*"],
 }

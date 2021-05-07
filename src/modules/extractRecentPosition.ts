@@ -26,17 +26,23 @@ export async function extractRecentPosition(
 
   collectRecentData(fileContent, recentData, layer)
 
-  return {
-    E: recentData.E.val,
-    X: recentData.X.val,
-    Y: recentData.Y.val,
-    Z: recentData.Z.val,
-    hotendTemperature: recentData.hotendTemperature.val,
-    bedTemperature: recentData.bedTemperature.val,
+  const result: recentSettings = {
+    E: 0,
+    X: 0,
+    Y: 0,
+    Z: 0,
+    hotendTemperature: 0,
+    bedTemperature: 0,
   }
+  let prop: keyof typeof result
+  for (prop in result) {
+    result[prop] = recentData[prop].val as number
+  }
+
+  return result
 }
 
-function collectRecentData(fileContent: string, resPos: recentData, layer: number): void {
+function collectRecentData(fileContent: string, resPos: recentData, layer: number) {
   const layerPosition = getPositionOfLayer(fileContent, layer)
   const sliced = fileContent.slice(0, layerPosition).split("\n")
   for (let i = sliced.length - 1; i >= 0; i--)
@@ -44,7 +50,7 @@ function collectRecentData(fileContent: string, resPos: recentData, layer: numbe
       if (resPos[axis].val == null)
         if (resPos[axis].regExp.test(sliced[i])) {
           const match = sliced[i].match(resPos[axis].regExp)
-          resPos[axis].val = parseFloat(match[1])
+          if (match) resPos[axis].val = parseFloat(match[1])
         }
 }
 

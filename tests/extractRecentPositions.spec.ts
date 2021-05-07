@@ -1,7 +1,5 @@
-import {
-  extractRecentPosition,
-  readFileOrThrow,
-} from "../src/modules/extractRecentPosition"
+import { extractRecentPosition } from "../src/modules/extractRecentPosition"
+import { readFileOrThrow } from "../src/modules/readFileOrThrow"
 
 const testGCode = "tests/data/CE3_DEF.gcode"
 
@@ -17,7 +15,7 @@ test("Return valid object when layer is found", async () => {
   expect(result.X).toBe(145.595)
   expect(result.Y).toBe(27.89)
   expect(result.Z).toBe(0.36)
-  expect(result.E).toBe(282.93521)
-  expect(result.hotendTemperature).toBe(200)
-  expect(result.bedTemperature).toBe(50)
+  expect(result.E).toBe(287.93521)
+  expect(result.hotendTemperature).toBe(220)
+  expect(result.bedTemperature).toBe(60)
 })
