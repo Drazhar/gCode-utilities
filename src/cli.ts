@@ -114,7 +114,7 @@ async function performTasks(options) {
     {
       title: "Preparing gCode snippet for insertion",
       task: async () => {
-        snippet = await prepareGcodeSnippet(recentSettings, breakType.filamentChange)
+        snippet = await prepareGcodeSnippet(recentSettings, options.type)
       },
     },
     {
